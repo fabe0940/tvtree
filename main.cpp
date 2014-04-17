@@ -3,7 +3,7 @@
 #include <iostream>
 #include <string>
 #include "BSTree2.h"
-#include "StringList.h"
+#include "Show.h"
 
 using namespace std;
 
@@ -13,7 +13,7 @@ int main(void) {
 	int running;
 	ifstream infile;
 	string line;
-	StringList test;
+	Show* test;
 
 	/* Initialize */
 	running = 1;
@@ -26,17 +26,29 @@ int main(void) {
 		exit(1);
 	}
 
-	getline(infile, line);
 	while(!infile.eof()) {
-		test.add(line);
-		getline(infile, line);
+		test = new Show();
 
-		while(line == "\n") {
+		getline(infile, line);
+		test->setTitle(line);
+
+		getline(infile, line);
+		test->setGenre(line);
+
+		getline(infile, line);
+		test->setAddress(line);
+
+		getline(infile, line);
+		while(line != "") {
+			test->addActor(line);
 			getline(infile, line);
 		}
-	}
 
-	test.print();
+		test->print();
+		cout << "--" << endl;
+
+		delete test;
+	}
 
 	/* Interact with user */
 	while(running) {
