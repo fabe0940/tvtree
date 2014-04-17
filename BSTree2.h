@@ -7,12 +7,12 @@
 #ifndef _BSTREE_H_
 #define _BSTREE_H_
 
-typedef int DATA_TYPE;
+#include "Show.h"
 
 class BinarySearchTree {
 	private:
 		typedef struct BSTreeNode {
-			DATA_TYPE data;
+			Show data;
 			BSTreeNode *leftPtr;
 			BSTreeNode *rightPtr;
 		} *TreePtr;
@@ -22,9 +22,9 @@ class BinarySearchTree {
 		void initBSTree() { rootPtr = NULL; }
 		void deleteBST(TreePtr& treePtr);
 
-		void deleteNode(TreePtr& treePtr, DATA_TYPE theItem);
+		void deleteNode(TreePtr& treePtr, Show theItem);
 		void deleteNodeItem(TreePtr& treePtr);
-		void processLeftMost(TreePtr& treePtr, DATA_TYPE& theItem);
+		void processLeftMost(TreePtr& treePtr, Show& theItem);
 
 		void printBST_InOrder(TreePtr treePtr);
 		void printBST_PreOrder(TreePtr treePtr);
@@ -34,15 +34,15 @@ class BinarySearchTree {
 
 		bool isLeaf(TreePtr treePtr);
 
-		TreePtr searchNodeInBST(TreePtr treePtr, DATA_TYPE searchKey);
+		TreePtr searchNodeInBST(TreePtr treePtr, Show searchKey);
 
 	public:
 		BinarySearchTree() { initBSTree(); }
 		~BinarySearchTree();
 
-		void addNode(DATA_TYPE newData);
-		void searchNode(DATA_TYPE searchKey);
-		void deleteNode(DATA_TYPE val);
+		void addNode(Show newData);
+		void searchNode(Show searchKey);
+		void deleteNode(Show val);
 
 		void printTree();
 
