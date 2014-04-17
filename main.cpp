@@ -12,8 +12,6 @@ using namespace std;
 int main(void) {
 	int running;
 	ifstream infile;
-	string line;
-	Show temp;
 	BinarySearchTree t;
 
 	/* Initialize */
@@ -28,12 +26,22 @@ int main(void) {
 	}
 
 	while(!infile.eof()) {
+		int index;
+		string line;
+		string str;
 		Show temp;
 
 		do {
 			getline(infile, line);
 		} while(line == "");
-		temp.setTitle(line);
+
+		index = line.find("(");
+		str = line.substr(0, index - 1);
+		temp.setTitle(str);
+		str = line.substr(index + 1, index + 5);
+		temp.setStartYear(atoi(str.c_str()));
+		str = line.substr(index + 6, index + 10);
+		temp.setEndYear(atoi(str.c_str()));
 
 		getline(infile, line);
 		temp.setGenre(line);
@@ -51,6 +59,8 @@ int main(void) {
 	}
 
 	t.printInOrder();
+
+	infile.close();
 
 	/* Interact with user */
 	while(running) {
