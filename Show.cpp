@@ -1,7 +1,6 @@
 #include <iostream>
 #include <string>
 #include "Show.h"
-#include "StringList.h"
 
 using namespace std;
 
@@ -29,13 +28,15 @@ void Show::print(void) {
 	int i;
 
 	cout << title << " (" << yearStart << " - " << yearEnd << ")" << endl;
-	cout << genre << endl;
-	cout << address << endl;
+	cout << "  " << genre << endl;
+	cout << "  " << address << endl;
 
 	i = 0;
 	while(actors[i] != "") {
-		cout << actors[i++] << endl;
+		cout << "  " <<  actors[i++] << endl;
 	}
+
+	cout << "--" << endl;
 
 	return;
 }
@@ -85,4 +86,8 @@ void Show::addActor(string a) {
 	actors[i] = a;
 
 	return;
+}
+
+string Show::getTitle(void) {
+	return title;
 }

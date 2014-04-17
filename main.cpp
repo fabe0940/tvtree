@@ -14,6 +14,7 @@ int main(void) {
 	ifstream infile;
 	string line;
 	Show temp;
+	BinarySearchTree t;
 
 	/* Initialize */
 	running = 1;
@@ -29,7 +30,9 @@ int main(void) {
 	while(!infile.eof()) {
 		Show temp;
 
-		getline(infile, line);
+		do {
+			getline(infile, line);
+		} while(line == "");
 		temp.setTitle(line);
 
 		getline(infile, line);
@@ -44,13 +47,10 @@ int main(void) {
 			getline(infile, line);
 		}
 
-		while(line == "" && !infile.eof()) {
-			getline(infile, line);
-		}
-
-		cout << "--" << endl;
-		temp.print();
+		t.addNode(temp);
 	}
+
+	t.printInOrder();
 
 	/* Interact with user */
 	while(running) {

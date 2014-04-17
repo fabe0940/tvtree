@@ -25,6 +25,7 @@ class Show {
 		void setGenre(string g);
 		void setAddress(string a);
 		void addActor(string a);
+		string getTitle(void);
 };
 
 #endif
