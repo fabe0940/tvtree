@@ -13,7 +13,7 @@ int main(void) {
 	int running;
 	ifstream infile;
 	string line;
-	Show* test;
+	Show temp;
 
 	/* Initialize */
 	running = 1;
@@ -27,27 +27,29 @@ int main(void) {
 	}
 
 	while(!infile.eof()) {
-		test = new Show();
+		Show temp;
 
 		getline(infile, line);
-		test->setTitle(line);
+		temp.setTitle(line);
 
 		getline(infile, line);
-		test->setGenre(line);
+		temp.setGenre(line);
 
 		getline(infile, line);
-		test->setAddress(line);
+		temp.setAddress(line);
 
 		getline(infile, line);
 		while(line != "") {
-			test->addActor(line);
+			temp.addActor(line);
 			getline(infile, line);
 		}
 
-		test->print();
-		cout << "--" << endl;
+		while(line == "" && !infile.eof()) {
+			getline(infile, line);
+		}
 
-		delete test;
+		cout << "--" << endl;
+		temp.print();
 	}
 
 	/* Interact with user */

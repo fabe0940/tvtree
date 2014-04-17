@@ -6,11 +6,17 @@
 using namespace std;
 
 Show::Show(void) {
+	int i;
+
 	yearStart = 0;
 	yearEnd = 0;
 	title = "";
 	genre = "";
 	address = "";
+
+	for(i = 0; i < _SHOW_ARRAY_LEN; i++) {
+		actors[i] = "";
+	}
 
 	return;
 }
@@ -20,10 +26,16 @@ Show::~Show(void) {
 }
 
 void Show::print(void) {
+	int i;
+
 	cout << title << " (" << yearStart << " - " << yearEnd << ")" << endl;
 	cout << genre << endl;
 	cout << address << endl;
-	actors.print();
+
+	i = 0;
+	while(actors[i] != "") {
+		cout << actors[i++] << endl;
+	}
 
 	return;
 }
@@ -63,7 +75,14 @@ void Show::setAddress(string a) {
 }
 
 void Show::addActor(string a) {
-	actors.add(a);
+	int i;
+
+	i = 0;
+	while(actors[i] != "") {
+		i++;
+	}
+
+	actors[i] = a;
 
 	return;
 }

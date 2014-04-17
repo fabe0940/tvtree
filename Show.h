@@ -2,7 +2,8 @@
 #define _SHOW_H_
 
 #include <string>
-#include "StringList.h"
+
+#define _SHOW_ARRAY_LEN 25
 
 using namespace std;
 
@@ -13,7 +14,7 @@ class Show {
 		string title;
 		string genre;
 		string address;
-		StringList actors;
+		string actors[_SHOW_ARRAY_LEN];
 	public:
 		Show();
 		~Show();
