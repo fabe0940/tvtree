@@ -25,6 +25,9 @@ class Show {
 		void setGenre(string g);
 		void setAddress(string a);
 		void addActor(string a);
+		int hasActor(string a);
+		int getYearStart(void);
+		int getYearEnd(void);
 		string getTitle(void);
 };
 

@@ -36,8 +36,6 @@ void Show::print(void) {
 		cout << "  " <<  actors[i++] << endl;
 	}
 
-	cout << "--" << endl;
-
 	return;
 }
 
@@ -86,6 +84,28 @@ void Show::addActor(string a) {
 	actors[i] = a;
 
 	return;
+}
+
+int Show::getYearStart(void) {
+	return yearStart;
+}
+
+int Show::getYearEnd(void) {
+	return yearEnd;
+}
+
+int Show::hasActor(string a) {
+	int i;
+	int result;
+
+	i = 0;
+	result = 0;
+
+	for(i = 0; i < _SHOW_ARRAY_LEN; i++) {
+		result = result ||  (a == actors[i]);
+	}
+
+	return result;
 }
 
 string Show::getTitle(void) {

@@ -22,35 +22,27 @@ class BinarySearchTree {
 		void initBSTree() { rootPtr = NULL; }
 		void deleteBST(TreePtr& treePtr);
 
-		void deleteNode(TreePtr& treePtr, Show theItem);
-		void deleteNodeItem(TreePtr& treePtr);
-		void processLeftMost(TreePtr& treePtr, Show& theItem);
-
 		void printBST_InOrder(TreePtr treePtr);
-		void printBST_PreOrder(TreePtr treePtr);
-		void printBST_PostOrder(TreePtr treePtr);
-
-		void printBST_BackwardPostOrder(TreePtr treePtr, int depth);
+		void printBST_TitleInOrder(TreePtr treePtr);
 
 		bool isLeaf(TreePtr treePtr);
 
-		TreePtr searchNodeInBST(TreePtr treePtr, Show searchKey);
+		void searchTitleInBST(TreePtr treePtr, Show searchKey);
+		void searchActorInBST(TreePtr treePtr, string key);
+		void searchDateInBST(TreePtr treePtr, int start, int end);
 
 	public:
 		BinarySearchTree() { initBSTree(); }
 		~BinarySearchTree();
 
 		void addNode(Show newData);
-		void searchNode(Show searchKey);
+		void searchNodeTitle(string s);
+		void searchNodeActor(string s);
+		void searchNodeDate(int start, int end);
 		void deleteNode(Show val);
 
-		void printTree();
-
-		void printInOrder();
-		void printPreOrder();
-		void printPostOrder();
-
-		void printBackwardPostOrder();
+		void print();
+		void printTitle();
 
 		bool isEmpty() { return (rootPtr == NULL); }
 };

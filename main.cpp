@@ -58,13 +58,52 @@ int main(void) {
 		t.addNode(temp);
 	}
 
-	t.printInOrder();
-
 	infile.close();
 
 	/* Interact with user */
+	int start;
+	int end;
+	string input;
+	string name;
 	while(running) {
-		running = 0;
+		cout << "> ";
+		cin >> input;
+
+		if(input == "ls") {
+			t.printTitle();
+		} else if(input == "title") {
+			getline(cin, name);
+			if(name.length() > 0) {
+				name = name.substr(1, name.length());
+			}
+			t.searchNodeTitle(name);
+		} else if(input == "actor") {
+			getline(cin, name);
+			if(name.length() > 0) {
+				name = name.substr(1, name.length());
+			}
+			t.searchNodeActor(name);
+		} else if(input == "date") {
+			cin >> start;
+			cin >> end;
+
+			if(start > end) {
+				cout << "invalid range" << endl;
+			}
+
+			t.searchNodeDate(start, end);
+		} else if(input == "help") {
+			cout << "commands:" << endl;
+			cout << "  ls" << endl;
+			cout << "  title <show title>" << endl;
+			cout << "  actor <actor name>" << endl;
+			cout << "  date <start year> <end year>" << endl;
+			cout << "  quit" << endl;
+		} else if(input == "quit") {
+			running = 0;
+		} else {
+			/* do nothing */
+		}
 	}
 
 	/* Clean up */
