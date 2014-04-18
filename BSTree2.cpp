@@ -3,8 +3,8 @@
  * Binary Search Tree Implementation with Deletion.
  */
 
-
 #include <iostream>
+#include <string>
 #include "BSTree2.h"
 
 using namespace std;
@@ -27,61 +27,7 @@ void BinarySearchTree::deleteBST(TreePtr& treePtr) {
 	}
 }
 
-void BinarySearchTree::deleteNode(DATA_TYPE val) {
-	deleteNode(rootPtr, val);
-}
-
-
-void BinarySearchTree::deleteNode(TreePtr& treePtr, DATA_TYPE val) {
-	if(treePtr == NULL) {
-		return;
-	} else if(val == treePtr->data) {
-		deleteNodeItem(treePtr);
-	} else if(val < treePtr->data) {
-		deleteNode(treePtr->leftPtr, val);
-	} else {
-		deleteNode(treePtr->rightPtr, val);
-	}
-}
-
-
-void BinarySearchTree::deleteNodeItem(TreePtr& treePtr) {
-	TreePtr delPtr;
-
-	if(isLeaf(treePtr)) {
-		delete treePtr;
-		treePtr = NULL;
-	} else if(treePtr->leftPtr == NULL) {
-		delPtr = treePtr;
-		treePtr = treePtr->rightPtr;
-		delPtr->rightPtr = NULL;
-		delete delPtr;
-	} else if(treePtr->rightPtr == NULL) {
-		delPtr = treePtr;
-		treePtr = treePtr->leftPtr;
-		delPtr->leftPtr = NULL;
-		delete delPtr;
-	} else {
-		DATA_TYPE replacementItem;
-		processLeftMost(treePtr->rightPtr, replacementItem);
-		treePtr->data = replacementItem;
-	}
-}
-
-
-void BinarySearchTree::processLeftMost(TreePtr& treePtr, DATA_TYPE& theItem) {
-	if(treePtr->leftPtr != NULL)
-		processLeftMost(treePtr->leftPtr, theItem);
-	else {
-		theItem = treePtr->data;
-		TreePtr delPtr = treePtr;
-		treePtr = treePtr->rightPtr;
-		delPtr->rightPtr = NULL;
-		delete delPtr;
-	}
-}
-
-void BinarySearchTree::addNode(DATA_TYPE newData) {
+void BinarySearchTree::addNode(Show newData) {
 	TreePtr newPtr;
 
 	newPtr = new BSTreeNode;
@@ -98,16 +44,16 @@ void BinarySearchTree::addNode(DATA_TYPE newData) {
 		while(treePtr != NULL) {
 			targetNodePtr = treePtr;
 
-			if(newData == treePtr->data) {
+			if(newData.getTitle() == treePtr->data.getTitle()) {
 				return;
-			} else if(newData < treePtr->data) {
+			} else if(newData.getTitle() < treePtr->data.getTitle()) {
 				treePtr = treePtr->leftPtr;
 			} else {
 				treePtr = treePtr->rightPtr;
 			}
 		}
 
-		if(newData < targetNodePtr->data) {
+		if(newData.getTitle() < targetNodePtr->data.getTitle()) {
 			targetNodePtr->leftPtr = newPtr;
 		} else {
 			targetNodePtr->rightPtr = newPtr;
@@ -115,90 +61,77 @@ void BinarySearchTree::addNode(DATA_TYPE newData) {
 	}
 }
 
-BinarySearchTree::TreePtr BinarySearchTree::searchNodeInBST(TreePtr treePtr, DATA_TYPE key) {
+void BinarySearchTree::searchTitleInBST(TreePtr treePtr, Show key) {
 	if(treePtr != NULL) {
-		if(key == treePtr->data) {
-			return treePtr;
-		} else if(key < treePtr->data) {
-			return searchNodeInBST(treePtr->leftPtr, key);
+		if(key.getTitle() == treePtr->data.getTitle()) {
+			treePtr->data.print();
+		} else if(key.getTitle() < treePtr->data.getTitle()) {
+			searchTitleInBST(treePtr->leftPtr, key);
 		} else {
-			return searchNodeInBST(treePtr->rightPtr, key);
+			searchTitleInBST(treePtr->rightPtr, key);
 		}
-	} else {
-		return NULL;
 	}
 }
 
-void BinarySearchTree::searchNode(DATA_TYPE searchKey) {
-	TreePtr srchPtr = NULL;
-
-	srchPtr = searchNodeInBST(rootPtr, searchKey);
-
-	if(srchPtr != NULL) {
-		cout << "\n Node: " << srchPtr->data << " was found in the BST" << endl;
-	} else {
-		cout << "\n Node: " << searchKey << " was not found" << endl;
+void BinarySearchTree::searchActorInBST(TreePtr treePtr, string key) {
+	if(treePtr != NULL) {
+		searchActorInBST(treePtr->leftPtr, key);
+		if(treePtr->data.hasActor(key)) {
+			treePtr->data.print();
+		}
+		searchActorInBST(treePtr->rightPtr, key);
 	}
 }
 
-void BinarySearchTree::printTree() {
-	printBST_InOrder(rootPtr);
+void BinarySearchTree::searchDateInBST(TreePtr treePtr, int start, int end) {
+	int srcStart;
+	int srcEnd;
+
+	if(treePtr != NULL) {
+		searchDateInBST(treePtr->leftPtr, start, end);
+		srcStart = treePtr->data.getYearStart();
+		srcEnd = treePtr->data.getYearEnd();
+		if(srcStart >= start && srcEnd <= end) {
+			treePtr->data.print();
+		}
+		searchDateInBST(treePtr->rightPtr, start, end);
+	}
 }
 
-void BinarySearchTree::printInOrder() {
+void BinarySearchTree::searchNodeTitle(string s) {
+	Show searchKey;
+	searchKey.setTitle(s);
+	searchTitleInBST(rootPtr, searchKey);
+}
+
+void BinarySearchTree::searchNodeActor(string s) {
+	searchActorInBST(rootPtr, s);
+}
+
+void BinarySearchTree::searchNodeDate(int start, int end) {
+	searchDateInBST(rootPtr, start, end);
+}
+
+void BinarySearchTree::print() {
 	printBST_InOrder(rootPtr);
 }
 
 void BinarySearchTree::printBST_InOrder(TreePtr treePtr) {
 	if(treePtr != NULL) {
 		printBST_InOrder(treePtr->leftPtr);
-		cout << treePtr->data << endl;
+		treePtr->data.print();
 		printBST_InOrder(treePtr->rightPtr);
 	}
 }
 
-void BinarySearchTree::printPreOrder() {
-	printBST_PreOrder(rootPtr);
+void BinarySearchTree::printTitle() {
+	printBST_TitleInOrder(rootPtr);
 }
 
-
-void BinarySearchTree::printBST_PreOrder(TreePtr treePtr) {
+void BinarySearchTree::printBST_TitleInOrder(TreePtr treePtr) {
 	if(treePtr != NULL) {
-		cout << treePtr->data << endl;
-		printBST_PreOrder(treePtr->leftPtr);
-		printBST_PreOrder(treePtr->rightPtr);
-	}
-}
-
-void BinarySearchTree::printPostOrder() {
-	printBST_PostOrder(rootPtr);
-}
-
-
-void BinarySearchTree::printBST_PostOrder(TreePtr treePtr) {
-	if(treePtr != NULL) {
-		printBST_PostOrder(treePtr->leftPtr);
-		printBST_PostOrder(treePtr->rightPtr);
-		cout << treePtr->data << endl;
-	}
-}
-
-void BinarySearchTree::printBackwardPostOrder() {
-	printBST_BackwardPostOrder(rootPtr, 0);
-}
-
-
-void BinarySearchTree::printBST_BackwardPostOrder(TreePtr treePtr, int depth) {
-	const int INDENT = 4;
-
-	if(treePtr != NULL) {
-		printBST_BackwardPostOrder(treePtr->rightPtr, depth+1);
-
-		for(int i = 0 ; i < INDENT*depth ; i++) {
-			cout << " ";
-		}
-		cout << treePtr->data << endl;
-
-		printBST_BackwardPostOrder(treePtr->leftPtr, depth+1);
+		printBST_TitleInOrder(treePtr->leftPtr);
+		cout << treePtr->data.getTitle() << endl;
+		printBST_TitleInOrder(treePtr->rightPtr);
 	}
 }
